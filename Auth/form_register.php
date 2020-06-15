@@ -15,7 +15,7 @@
     }
     else {
       if(filter_var($user[email], FILTER_VALIDATE_EMAIL )){
-        $users_xml = simplexml_load_file("users.xml");
+        $users_xml = simplexml_load_file("../XML/users.xml");
         foreach($users_xml->user as $users){
           //Провека, сусчиствуеьът ли пользователь с такими данными
           if($user[email] == $users->email){
@@ -29,7 +29,7 @@
         else {
           if($user[password] == $user[confirm_password] && $user[password] != ""){
             $dom = new DomDocument();
-            $dom->load("users.xml");
+            $dom->load("../XML/users.xml");
             $xpath = new DOMXPath ($dom);
             $parent = $xpath->query ('//users');
             $next = $xpath->query ('//users/user');
@@ -45,7 +45,7 @@
             $new_user->appendChild ($new_name);
             $parent->item(0)->insertBefore($new_user, $next->item(0));
 
-            $dom->save("users.xml");
+            $dom->save("../XML/users.xml");
             $result ="Даные добавлены";
             echo json_encode($result);
           }
